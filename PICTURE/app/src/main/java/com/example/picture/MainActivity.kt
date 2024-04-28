@@ -7,7 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import kotlinx.coroutines.*
+import java.io.BufferedWriter
 import java.io.IOException
+import java.io.OutputStreamWriter
+import java.io.PrintWriter
 import java.net.ServerSocket
 
 //import java.net.ServerSocket
@@ -30,15 +33,22 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         startServer()
-    }
-    private fun startServer() {
+    }    private fun startServer() {
         serverScope.launch {
             try {
                 ServerSocket(12345).use { serverSocket ->
                     while (isActive) {
                         val socket = serverSocket.accept()
-                        Log.d("SocketServer", "Received!!!!!!")
-                        //handleCommand(socket)
+                        Log.d("SocketServer", "Connection accepted")
+
+                        val output = socket.getOutputStream()
+                        val writer = PrintWriter(BufferedWriter(OutputStreamWriter(output)), true)
+
+                        writer.println("Command received")
+
+                        // handleCommand(socket)
+
+                        socket.close()
                     }
                 }
             } catch (e: IOException) {
