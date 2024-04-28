@@ -1,0 +1,137 @@
+# Built application files
+*.apk
+*.ap_
+*.aab
+
+# Files for the ART/Dalvik VM
+*.dex
+*.odex
+*.oat
+*.art
+*.map
+*.m??
+*.tsm
+*.dat
+*.bkup
+*.testparam
+*.dab
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+out/
+release/
+
+# Gradle files
+.gradle/
+build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Gradle wrapper executable jar
+gradle-wrapper.jar
+
+# ProGuard & R8 output
+proguard/
+proguard_files/
+*/proguard_files/
+proguard-rules.pro
+proguard-project.txt
+r8-output
+
+# Log Files
+*.log
+
+# Android Studio Navigation editor temp files
+.navigation/
+
+# Android Studio captures folder
+captures/
+
+# IntelliJ
+*.iml
+.idea/
+.idea_modules/
+
+# Keystore files
+*.jks
+*.keystore
+
+# External native build folder generated in Android Studio 2.2 and later
+.externalNativeBuild/
+
+# Google Services (e.g., APIs or Firebase)
+google-services.json
+
+# Freeline
+freeline.py
+freeline/
+freeline_project_description.json
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/readme.md
+
+# Version control
+vcs.xml
+
+# lint
+lint/intermediates/
+lint/generated/
+lint/outputs/
+lint/tmp/
+lint/reports/
+
+# Others
+.svn
+*.swp
+*~
+.DS_Store
+Thumbs.db
+ehthumbs.db
+*.lck
+*.svd
+*.blob
+*.orig
+*.bak
+*.tmp
+*.temp
+*.TMP
+*.kar
+*.kdev4
+.kdev4/
+*.sublime-project
+*.sublime-workspace
+.ipynb_checkpoints
+*.directory
+.git
+.gitattributes
+.swo
+.swn
+.swh
+.swm
+.svl
+.swp
+.swl
+.swg
+.svf
+.svd
+sess_*
+publish
+interstitial
+snapshot_blob.bin
+.classpath
+.project
+.settings/
+externalNativeBuild/
+.cxx/
+*.cxx
+cmake-build-*/
+
