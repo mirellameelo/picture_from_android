@@ -5,7 +5,6 @@ app = Flask(__name__)
 @app.route('/take_photo', methods=['POST'])
 def take_photo():
     import socket
-    print("hellou")
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect(('10.0.0.35', 12345))
