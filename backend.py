@@ -5,10 +5,11 @@ app = Flask(__name__)
 @app.route('/take_photo', methods=['POST'])
 def take_photo():
     import socket
+    print("hellou")
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect(('10.0.0.35', 12345))
-            s.sendall(b'TAKE_PHOTO')
+            s.sendall(b'TAKE_PHOTO\n')
             response = s.recv(1024)
             print(f"Received: {response.decode('utf-8')}")
             return jsonify({"status": "success", "message": "Photo command sent."})
