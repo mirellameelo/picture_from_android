@@ -23,6 +23,9 @@ import java.net.ServerSocket
 import android.os.Handler
 import android.os.HandlerThread
 import android.Manifest
+import android.media.Image
+import java.io.File
+import java.io.FileOutputStream
 
 class MainActivity : AppCompatActivity() {
 
@@ -94,16 +97,37 @@ class MainActivity : AppCompatActivity() {
     private fun setupImageReader() {
         imageReader = ImageReader.newInstance(1920, 1080, ImageFormat.JPEG, 1).apply {
             setOnImageAvailableListener({ reader ->
-                val image = reader.acquireLatestImage()
-                val buffer = image.planes[0].buffer
-                val data = ByteArray(buffer.remaining())
-                buffer.get(data)
+                val image = reader.acquireNextImage()
+                saveImageToFile(image)
                 image.close()
-                Log.e("SocketServer", "setupImageReader set")
-                // Handle the byte array (data) which contains the JPEG image
             }, cameraHandler)
         }
         createCaptureSession()
+    }
+
+    private fun saveImageToFile(image: Image) {
+        val buffer = image.planes[0].buffer
+        val bytes = ByteArray(buffer.remaining())
+        buffer.get(bytes)
+
+        val outputDirectory = getOutputDirectory()
+        val photoFile = File(outputDirectory, "photo_${System.currentTimeMillis()}.jpg")
+
+        try {
+            FileOutputStream(photoFile).use { outputStream ->
+                outputStream.write(bytes)
+                Log.d("SocketServer", "Image saved to ${photoFile.absolutePath}")
+            }
+        } catch (e: IOException) {
+            Log.e("SocketServer", "Error saving image: ${e.message}")
+        }
+    }
+
+    private fun getOutputDirectory(): File {
+        val mediaDir = externalMediaDirs.firstOrNull()?.let {
+            File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
+        }
+        return if (mediaDir != null && mediaDir.exists()) mediaDir else filesDir
     }
     private fun createCaptureSession() {
         cameraDevice.createCaptureSession(listOf(imageReader.surface), object : CameraCaptureSession.StateCallback() {
